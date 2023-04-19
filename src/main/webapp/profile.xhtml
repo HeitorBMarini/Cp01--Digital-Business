@@ -17,6 +17,7 @@
 	</div>
 	<br/>
 	<div id="body">
+		<h:form>
 		<p:panel>
 			<h2><strong>PROFILE</strong></h2>
 		</p:panel>
@@ -73,11 +74,37 @@
 </h:form>
 
 
-			</p:panel>
+	</p:panel>
+
+
 		</h:form>
 			</p:dialog> 
 			
+			<!--Colunas-->
+<p:dataTable id="profileTable" var="profile" value="#{customizedDocumentsView.profiles}" paginator="true" rows="10" 
+styleClass="mt-2" style="margin-top: 30px;">
+	
+	<p:column >
+		<f:facet name="header">
+			<h:outputText value="Name"/>
+		</f:facet>
+		<h:outputText value="#{profile.name}"/>
+	</p:column>
+	<p:column>
+		<f:facet name="header">
+			<h:outputText value="Profile"/>
+		</f:facet>
+		<h:outputText value="#{profile.profileType}"/>
+	</p:column>
+	<p:column>
+		<f:facet name="header">
+			<h:outputText value="Email"/>
+		</f:facet>
+		<h:outputText value="#{profile.email}"/>
+	</p:column>
+</p:dataTable>
 		
+</h:form>
 		
 	</div>
 </h:body>

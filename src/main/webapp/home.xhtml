@@ -58,33 +58,7 @@
 				</p:outputPanel>
 			</p:dialog>
 
-			<p:dataTable id="profileTable" var="profile" value="#{customizedDocumentsView.profiles}"
-             paginator="true" rows="10" style="margin-top: 2rem; font-size: 1rem;">
-    <p:column style="font-weight: bold;">
-        <f:facet name="header">
-            <h:outputText value="Id"/>
-        </f:facet>
-        <h:outputText value="#{profile.id}"/>
-    </p:column>
-    <p:column style="font-weight: bold;">
-        <f:facet name="header">
-            <h:outputText value="Name"/>
-        </f:facet>
-        <h:outputText value="#{profile.name}"/>
-    </p:column>
-    <p:column style="font-weight: bold;">
-        <f:facet name="header">
-            <h:outputText value="Profile"/>
-        </f:facet>
-        <h:outputText value="#{profile.profileType}"/>
-    </p:column>
-    <p:column style="font-weight: bold;">
-        <f:facet name="header">
-            <h:outputText value="Email"/>
-        </f:facet>
-        <h:outputText value="#{profile.email}"/>
-    </p:column>
-</p:dataTable>
+			
 
 
 		</h:form>

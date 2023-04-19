@@ -19,6 +19,7 @@ public class ProfileModel {
     private String email;
     private String profile;
     private String password;
+	private long id;
 
     // getters and setters
 
@@ -56,3 +57,4 @@ public class ProfileModel {
     public void setId(long id) {
         this.id = id;
     }
+}
