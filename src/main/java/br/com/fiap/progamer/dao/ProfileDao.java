@@ -2,47 +2,83 @@ package br.com.fiap.progamer.dao;
 
 import java.util.List;
 
-import javax.inject.Named;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
-import javax.transaction.Transactional;
 
+import br.com.fiap.progamer.bean.ProfileBean;
 import br.com.fiap.progamer.model.ProfileModel;
 
-@Named
 public class ProfileDao {
 
-	@PersistenceContext
-	private EntityManager entityManager;
+    private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("progamer");
 
-	public ProfileDao(EntityManager entityManager) {
-		this.entityManager = entityManager;
-	}
+    public void save(ProfileBean profileBean) {
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction tx = em.getTransaction();
 
-	@Transactional
-	public void save(ProfileModel profileModel) {
-		this.entityManager.merge(profileModel);
-	}
+        try {
+            tx.begin();
 
-	public List<ProfileModel> findAll() {
-		@SuppressWarnings("unchecked")
-		TypedQuery<ProfileModel> query = (TypedQuery<ProfileModel>) entityManager.createQuery(
-				"SELECT e FROM ProfileModel e");
+            ProfileModel profileModel = new ProfileModel();
+            profileModel.setName(profileBean.getName());
+            profileModel.setEmail(profileBean.getEmail());
+            profileModel.setProfile(profileBean.getProfile());
+            profileModel.setPassword(profileBean.getPassword());
 
-		return query.getResultList();
+            em.persist(profileModel);
+            tx.commit();
+        } catch (Exception e) {
+            if (tx != null && tx.isActive()) {
+                tx.rollback();
+            }
+            throw new RuntimeException("Erro ao salvar o perfil", e);
+        } finally {
+            em.close();
+        }
+    }
+
+    public ProfileModel findById(long id) {
+        EntityManager em = emf.createEntityManager();
+        try {
+            return em.find(ProfileModel.class, id);
+        } finally {
+            em.close();
+        }
+    }
+
+    public List<ProfileModel> findAll() {
+        EntityManager em = emf.createEntityManager();
+        try {
+            TypedQuery<ProfileModel> query = em.createQuery("FROM ProfileModel", ProfileModel.class);
+            return query.getResultList();
+        } finally {
+            em.close();
+        }
+    }
+
+    public void delete(ProfileModel profileModel) {
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction tx = em.getTransaction();
+
+        try {
+            tx.begin();
+
+            em.remove(em.merge(profileModel));
+
+            tx.commit();
+        } catch (Exception e) {
+            if (tx != null && tx.isActive()) {
+                tx.rollback();
+            }
+            throw new RuntimeException("Erro ao excluir o perfil", e);
+        } finally {
+            em.close();
+        }
+    }
+
+	public void create(ProfileModel profileModel) {
 	}
-	
-	public List<ProfileModel> findAll2() {
-		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-		CriteriaQuery<ProfileModel> cq = cb.createQuery(ProfileModel.class);
-		Root<ProfileModel> rootEntry = cq.from(ProfileModel.class);
-		CriteriaQuery<ProfileModel> all = cq.select(rootEntry);
-		TypedQuery<ProfileModel> allQuery = entityManager.createQuery(all);
-		return allQuery.getResultList();
-	}
-	
 }

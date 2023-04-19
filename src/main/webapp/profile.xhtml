@@ -6,6 +6,7 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
 
+
 <h:head>
 </h:head>
 
@@ -62,9 +63,17 @@
 		
 	</p:selectOneRadio>
 
-	<h:outputLabel for="password" value="Password" style="font-weight: bold;" />
-    <h:inputText id="password" value="#{profileBean.newProfile.password}" required="true" style="padding: 5px; 
-	border-radius: 5px; border: 1px solid #ccc; width: 100%; margin-top: 20px;" />
+	
+
+<p:outputLabel for="pswd1" styleClass="col-fixed" value="Password" style="font-weight: bold;"/> 
+<p:password id="pswd1" value="#{passwordView.password5}" match="pswd2" label="Password 1" required="true" toggleMask="true" redisplay="true"/> 
+
+<p:outputLabel for="pswd2" styleClass="col-fixed" value="Confirm Password" style="margin-top: 20px; font-weight: bold;"/> 
+<p:password id="pswd2" value="#{passwordView.password5}" label="Password 2" required="true" style="margin-top: 20px;"/>
+
+
+
+
 	
 
     <h:commandButton value="Save" action="#{profileBean.saveNewProfile}" style="background-color: #e91e5d; color: white; border: none;
@@ -82,7 +91,7 @@
 			
 			<!--Colunas-->
 <p:dataTable id="profileTable" var="profile" value="#{customizedDocumentsView.profiles}" paginator="true" rows="10" 
-styleClass="mt-2" style="margin-top: 30px;">
+styleClass="mt-2" >
 	
 	<p:column >
 		<f:facet name="header">
