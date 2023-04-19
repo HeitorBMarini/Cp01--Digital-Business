@@ -41,22 +41,37 @@
 
 			<p:panel id="panel">
 				<h2><strong>New Profile</strong></h2>
-				<h:form id="newProfileForm" enctype="multipart/form-data">
-  <h:panelGrid columns="2">
-    <h:outputLabel for="firstName" value="First Name:" />
-    <h:inputText id="firstName" value="#{profileBean.newProfile.firstName}" required="true" />
+				<h:form id="newProfileForm" enctype="multipart/form-data" style="width: 500px; margin: 0 auto;">
+  <h:panelGrid columns="2" columnClasses="labelColumn, inputColumn" style="margin-top: 20px;">
 
-    <h:outputLabel for="lastName" value="Last Name:" />
-    <h:inputText id="lastName" value="#{profileBean.newProfile.lastName}" required="true" />
+    <h:outputLabel for="Name" value="Name" style="font-weight: bold;" />
+    <h:inputText id="Name" value="#{profileBean.newProfile.Name}" required="true" style="padding: 5px; border-radius: 5px; 
+	border: 1px solid #ccc; width: 100%;" />
 
-    <h:outputLabel for="email" value="Email:" />
-    <h:inputText id="email" value="#{profileBean.newProfile.email}" required="true" />
+   
 
+    <h:outputLabel for="email" value="Email" style="font-weight: bold;" />
+    <h:inputText id="email" value="#{profileBean.newProfile.email}" required="true" style="padding: 5px; 
+	border-radius: 5px; border: 1px solid #ccc; width: 100%; margin-top: 20px;" />
+
+	<h:outputLabel for="Profile" value="Profile" style="font-weight: bold;" />
+	<p:selectOneRadio id="console" value="#{radioView.console}">
+		<f:selectItem itemLabel="User" itemValue="User"/>
+		<f:selectItem itemLabel="Admin" itemValue="Admin"/>
+		
+	</p:selectOneRadio>
+
+	<h:outputLabel for="password" value="Password" style="font-weight: bold;" />
+    <h:inputText id="password" value="#{profileBean.newProfile.password}" required="true" style="padding: 5px; 
+	border-radius: 5px; border: 1px solid #ccc; width: 100%; margin-top: 20px;" />
 	
 
-    <h:commandButton value="Save" action="#{profileBean.saveNewProfile}" />
+    <h:commandButton value="Save" action="#{profileBean.saveNewProfile}" style="background-color: #e91e5d; color: white; border: none;
+	 padding: 10px 60px; text-align: center; text-decoration: none; display: inline-block; 
+	font-size: 16px; margin-top: 20px; border-radius: 5px; border: 1px solid black; cursor: pointer;" />
   </h:panelGrid>
 </h:form>
+
 
 			</p:panel>
 		</h:form>
