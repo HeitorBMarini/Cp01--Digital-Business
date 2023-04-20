@@ -49,10 +49,12 @@ public class ProfileModel {
      * @param password
      */
     public void setPasswordHash(String password) {
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        this.passwordHash = passwordEncoder.encode(password);
+      
     }
 
+	/**
+	 * @return
+	 */
 	public long getId() {
 		return id;
 	}

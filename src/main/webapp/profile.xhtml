@@ -45,11 +45,11 @@
 						
 						
 						<p:outputLabel for="pswd1" styleClass="col-fixed" value="Password" style="font-weight: bold;"/>
-						<p:password id="pswd1" value="#{profileBean.profileModel.passwordHash}" match="pswd2" label="Password 1" required="true" toggleMask="true" redisplay="true"/>
+						<p:password id="pswd1" value="#{profileBean.profileModel}" match="pswd2" label="Password 1" required="true" toggleMask="true" redisplay="true"/>
 						
 						
 						<p:outputLabel for="pswd2" styleClass="col-fixed" value="Confirm Password" style="font-weight: bold; "/>
-						<p:password id="pswd2" value="#{profileBean.profileModel.passwordHash}" label="Password 2" required="true"/>
+						<p:password id="pswd2" value="#{profileBean.profileModel}" label="Password 2" required="true" toggleMask="true" redisplay="true"/>
 						
 						
 						<p:commandButton value="Save" icon="pi pi-save" action="#{profileBean.save()}" oncomplete="PF('newProfile').hide()" 
