@@ -17,13 +17,14 @@
 	</div>
 	<br/>
 	<div id="body">
-		<h:form id="form">
+		<h:form id="form" >
 			
 
-			<!--Widget Profile-->
-			<p:dialog header="New Profile" widgetVar="newProfile" modal="true" showEffect="fade" hideEffect="fade" resizable="false" >
-				<p:panel id="newProfilePanel">
-					<h:panelGrid columns="2" cellpadding="4">
+			
+			<p:dialog header="New Profile" widgetVar="newProfile" modal="true" showEffect="fade" 
+			hideEffect="fade" resizable="false" >
+				<p:panel id="newProfilePanel" >
+					<h:panelGrid columns="2" cellpadding="4" >
 
 						<h:outputText value="Name *" style="font-weight: bold;"/>
 						<p:inputText id="name" value="#{profileBean.profileModel.name}" required="true" requiredMessage="Name is required!" validatorMessage="Name must be a maximum of 100 characters">
@@ -52,8 +53,8 @@
 						<p:password id="pswd2" value="#{profileBean.profileModel}" label="Password 2" required="true" toggleMask="true" redisplay="true"/>
 						
 						
-						<p:commandButton value="Save" icon="pi pi-save" action="#{profileBean.save()}" oncomplete="PF('newProfile').hide()" 
-						style="width: 10rem; background-color: #e91e5d; "/>
+						<p:commandButton value="Save" icon="pi pi-save" action="#{profileBean.save()}" 
+						oncomplete="PF('newProfile').hide()" style="width: 10rem; background-color: #e91e5d; margin-top: 20px; "/>
 
 					</h:panelGrid>
 				</p:panel>
@@ -61,7 +62,7 @@
 
 			
 			
-			<!--Botões-->
+			
 			<p:panel>
 				<p:commandButton oncomplete="PF('newProfile').show()" icon="pi pi-plus" value=" New" title="New"
 				style="background-color: #e91e5d;" >
@@ -71,7 +72,7 @@
 
 			
 
-			<!--Colunas-->
+			
 			<p:dataTable id="profileTable" var="profile" value="#{profileBean.findAll()}" paginator="true" rows="10" styleClass="mt-2">
 
 				<p:column>
