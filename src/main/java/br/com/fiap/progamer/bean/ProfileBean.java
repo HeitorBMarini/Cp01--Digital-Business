@@ -1,19 +1,30 @@
 package br.com.fiap.progamer.bean;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
+import javax.inject.Named;
+import javax.transaction.Transactional;
 
 import br.com.fiap.progamer.dao.ProfileDao;
 import br.com.fiap.progamer.model.ProfileModel;
 
-@ManagedBean
+@Named
 @RequestScoped
 public class ProfileBean {
 
-	private ProfileModel profileModel = new ProfileModel();
-
+	ProfileModel profileModel = new ProfileModel();
+	
+	@Inject
+	private ProfileDao profileDao;
+	
+	private ProfileModel selectedProfile;
+	
+	
 	public ProfileModel getProfileModel() {
 		return profileModel;
 	}
@@ -22,37 +33,40 @@ public class ProfileBean {
 		this.profileModel = profileModel;
 	}
 
+	@Transactional
 	public void save() {
-		
-		try {
-			ProfileDao dao = new ProfileDao();
-			dao.create(profileModel);
-
-			// Exemplo de mensagem de sucesso
+		if (!this.profileModel.getName().isEmpty() && !this.profileModel.getProfile().isEmpty()
+				&& !this.profileModel.getEmail().isEmpty() && !this.profileModel.getPasswordHash().isEmpty()) {
+			profileDao.save(this.profileModel);
+			this.profileModel = new ProfileModel();
 			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_INFO, "Dados salvos com sucesso!", ""));
-		} catch (Exception e) {
-			// Exemplo de mensagem de erro
+					new FacesMessage(FacesMessage.SEVERITY_INFO, "As informações foram salvas com sucesso!", "INFO"));
+		} else {
 			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao salvar dados!", ""));
-			e.printStackTrace();
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro ao tentar salvar!", "ERROR"));
 		}
 	}
-
-	public String getName() {
-		return profileModel.getName();
+	
+	public List<ProfileModel> findAll(){
+		return this.profileDao.findAll();
 	}
 
-	public String getEmail() {
-		return profileModel.getEmail();
+	public ProfileModel getSelectedProfile() {
+		return selectedProfile;
 	}
 
-	public String getProfile() {
-		return profileModel.getProfile();
+	public void setSelectedProfile(ProfileModel selectedProfile) {
+		this.selectedProfile = selectedProfile;
 	}
-
-	public String getPassword() {
-		return profileModel.getPassword();
+	
+	
+	public static void main(String[] args) {
+		List<ProfileModel> profiles = new ArrayList<>();
+		
+		for(ProfileModel profile : profiles) {
+			System.out.println(profile.getName());
+		}
 	}
+	
 }
 
